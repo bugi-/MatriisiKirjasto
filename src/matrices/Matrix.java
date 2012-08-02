@@ -27,43 +27,50 @@ public class Matrix {
      * @param matrix Matriisi, josta muodostetaan merkkijono.
      * @return Merkkijonoesitys annetusta matriisista.
      */
-//    public static String printMatrix(int[][] matrix) {
-//        if (matrix.length <= 1) {
-//            String result = "[";
-//            for (int i = 0; i < matrix[0].length; i++) {
-//                result = result.concat(" " + matrix[0][i]);
-//            }
-//            result = result.concat(" ]");
-//            return result;
-//        } else {
-//            // Etsitään suurin ja pienin alkio formatointia varten.
-//            int min = Integer.MAX_VALUE;
-//            int max = Integer.MIN_VALUE;
-//            for (int i = 0; i < matrix.length; i++) {
-//                for (int j = 0; j < matrix[i].length; j++) {
-//                    int current = matrix[i][j];
-//                    if (current < min) min = current;
-//                    if (current > max) max = current;
-//                }
-//            }
-//            // Lasketaan näiden pituudet ("hitaasti", mutta vakioajassa).
-//            int minLength = String.valueOf(min).length();
-//            int maxLength = String.valueOf(max).length();
-//            // Valitaan pidempi
-//            int indexMaxLength = Math.max(minLength, maxLength);
-//            
-//            // Muodostetaan merkkijono alkioista riveittäin.
-//            String result = new String();
-//            for (int i = 0; i < matrix.length; i++) {
-//                result = result.concat("|");
-//                for (int j = 0; j < matrix[i].length; j++) {
-//                    StringUtils.repeat();
-//                }
-//                result = result.concat(" |" + "\n");
-//            }
-//            return "";
-//        }
-//    }
+    public static String toString(int[][] matrix) {
+        if (matrix.length <= 1) {
+            StringBuilder result = new StringBuilder("[");
+            for (int i = 0; i < matrix[0].length; i++) {
+                result.append(matrix[0][i]);
+            }
+            result.append(" ]");
+            return result.toString();
+        }
+        else {
+            // Etsitään suurin ja pienin alkio formatointia varten.
+            int min = Integer.MAX_VALUE;
+            int max = Integer.MIN_VALUE;
+            for (int i = 0; i < matrix.length; i++) {
+                for (int j = 0; j < matrix[i].length; j++) {
+                    int current = matrix[i][j];
+                    if (current < min) min = current;
+                    if (current > max) max = current;
+                }
+            }
+            // Lasketaan näiden pituudet ("hitaasti", mutta vakioajassa).
+            int minLength = String.valueOf(min).length();
+            int maxLength = String.valueOf(max).length();
+            // Valitaan pidempi
+            int indexMaxLength = Math.max(minLength, maxLength);
+            
+            // Muodostetaan merkkijono alkioista riveittäin.
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < matrix.length; i++) {
+                result.append("|");
+                for (int j = 0; j < matrix[i].length; j++) {
+                    // Tasataan oikealle, joten alkuun täytetään välilyönneillä  (vähintään 1)
+                    int currentElement = matrix[i][j];
+                    int numSpaces = indexMaxLength - String.valueOf(currentElement).length() + 1;
+                    for (int k = numSpaces; k > 0; k--) {
+                        result.append(" ");
+                    }
+                    result.append(currentElement);
+                }
+                result.append(" |" + "\n");
+            }
+            return result.toString();
+        }
+    }
 
     /**
      * *** MATRIISIEN GENEROINTIA     ******
@@ -170,5 +177,11 @@ public class Matrix {
             identity[i][i] = 1;
         }
         return identity;
+    }
+    
+    public static void main(String[] args) {
+        int[][] matr = new int[][]{{1, -2},
+                                   {5, 0}};
+        System.out.println(toString(matr));
     }
 }
