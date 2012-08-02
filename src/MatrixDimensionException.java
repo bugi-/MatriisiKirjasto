@@ -9,7 +9,7 @@
  * dimensiot ja kertolaskussa matriisien tulee olla muotoa (n*m)(m*p).
  * @author Bugi
  */
-public class MatrixDimensionException extends RuntimeException {
+public class MatrixDimensionException extends Exception {
 
     static final String defaultMessage = "Dimensions of the matrices are incorrect for this operation";
 
