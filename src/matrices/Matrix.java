@@ -180,7 +180,7 @@ public class Matrix {
     }
     
     public static void main(String[] args) {
-        int[][] matr = new int[][]{{1, -2},
+        int[][] matr = new int[][]{{1, 2},
                                    {5, 0}};
         System.out.println(toString(matr));
     }
