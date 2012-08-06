@@ -1,7 +1,5 @@
 package matrices;
 
-import com.sun.xml.internal.ws.util.StringUtils;
-
 /**
  * Sisältää matriiseja generoivia metodeja, sekä 2d taulukoiden tulostukseen
  * soveltuvia metodeja.
@@ -76,7 +74,7 @@ public class Matrix {
      * *** MATRIISIEN GENEROINTIA     ******
      */
     /*
-     * Generointi on myös harvoin käytettävä toimenpide, joten mitään optimointia ei harrasteta.
+     * Generointi on myös harvoin käytettävä toimenpide, joten turhaa optimointia ei harrasteta.
      */
     
     /**
@@ -103,7 +101,7 @@ public class Matrix {
             throw new IllegalArgumentException("A matrix must have positive dimensions!");
         }
         int[][] zeros = new int[height][width];
-        // Ei luoteta oletusarvoihin. 
+        // Ei luoteta oletusarvoihin, vaikka ehkä voisi.
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 zeros[i][j] = 0;
