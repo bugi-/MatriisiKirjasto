@@ -8,13 +8,14 @@ package matrices;
  */
 public class Matrix {
 
+    private static final String emptyMatrixString = "[ ]";
+    
     private Matrix() {
     }
 
-    /**
-     * *** MATRIISIEN TULOSTUSTA     ******
-     */
     /*
+     * *** MATRIISIEN TULOSTUSTA     ******
+     * 
      * Tulostuksien ei tarvitse olla tehokkaita, koska niitä ei toivottavasti
      * käytetä kriittisissä vaiheissa.
      */
@@ -26,7 +27,10 @@ public class Matrix {
      * @return Merkkijonoesitys annetusta matriisista.
      */
     public static String toString(int[][] matrix) {
-        if (matrix.length <= 1) {
+        if (matrix.length == 0) {
+            return emptyMatrixString;
+        }
+        else if (matrix.length == 1) {
             StringBuilder result = new StringBuilder("[");
             for (int i = 0; i < matrix[0].length; i++) {
                 result.append(matrix[0][i]);
@@ -35,45 +39,49 @@ public class Matrix {
             return result.toString();
         }
         else {
-            // Etsitään suurin ja pienin alkio formatointia varten.
-            int min = Integer.MAX_VALUE;
-            int max = Integer.MIN_VALUE;
-            for (int i = 0; i < matrix.length; i++) {
-                for (int j = 0; j < matrix[i].length; j++) {
-                    int current = matrix[i][j];
-                    if (current < min) min = current;
-                    if (current > max) max = current;
-                }
+            if (matrix[0].length == 0) {
+                return emptyMatrixString;
             }
-            // Lasketaan näiden pituudet ("hitaasti", mutta vakioajassa).
-            int minLength = String.valueOf(min).length();
-            int maxLength = String.valueOf(max).length();
-            // Valitaan pidempi
-            int indexMaxLength = Math.max(minLength, maxLength);
-            
-            // Muodostetaan merkkijono alkioista riveittäin.
-            StringBuilder result = new StringBuilder();
-            for (int i = 0; i < matrix.length; i++) {
-                result.append("|");
-                for (int j = 0; j < matrix[i].length; j++) {
-                    // Tasataan oikealle, joten alkuun täytetään välilyönneillä  (vähintään 1)
-                    int currentElement = matrix[i][j];
-                    int numSpaces = indexMaxLength - String.valueOf(currentElement).length() + 1;
-                    for (int k = numSpaces; k > 0; k--) {
-                        result.append(" ");
+            else {
+                // Etsitään suurin ja pienin alkio formatointia varten.
+                int min = Integer.MAX_VALUE;
+                int max = Integer.MIN_VALUE;
+                for (int i = 0; i < matrix.length; i++) {
+                    for (int j = 0; j < matrix[i].length; j++) {
+                        int current = matrix[i][j];
+                        if (current < min) min = current;
+                        if (current > max) max = current;
                     }
-                    result.append(currentElement);
                 }
-                result.append(" |" + "\n");
+                // Lasketaan näiden pituudet ("hitaasti", mutta vakioajassa).
+                int minLength = String.valueOf(min).length();
+                int maxLength = String.valueOf(max).length();
+                // Valitaan pidempi
+                int indexMaxLength = Math.max(minLength, maxLength);
+
+                // Muodostetaan merkkijono alkioista riveittäin.
+                StringBuilder result = new StringBuilder();
+                for (int i = 0; i < matrix.length; i++) {
+                    result.append("|");
+                    for (int j = 0; j < matrix[i].length; j++) {
+                        // Tasataan oikealle, joten alkuun täytetään välilyönneillä  (vähintään 1)
+                        int currentElement = matrix[i][j];
+                        int numSpaces = indexMaxLength - String.valueOf(currentElement).length() + 1;
+                        for (int k = numSpaces; k > 0; k--) {
+                            result.append(" ");
+                        }
+                        result.append(currentElement);
+                    }
+                    result.append(" |" + "\n");
+                }
+                return result.toString();
             }
-            return result.toString();
         }
     }
 
     /**
      * *** MATRIISIEN GENEROINTIA     ******
-     */
-    /*
+     * 
      * Generointi on myös harvoin käytettävä toimenpide, joten turhaa optimointia ei harrasteta.
      */
     
@@ -177,9 +185,32 @@ public class Matrix {
         return identity;
     }
     
+    /**
+     * Luo matriisin, jonka alkiona on riveittäin juokseva alkion "järjestysluku".
+     * Esim | 1, 2|
+     *      | 3, 4|
+     * Sopii vaikkapa testailuun
+     * 
+     * @param width Matriisin leveys
+     * @param height Matriisin korkeus
+     * @return Kuvatunkaltainen matriisi
+     */
+    public static int[][] rangeMatrix(int width, int height) {
+        if (width < 0 || height < 0) {
+            throw new IllegalArgumentException("A matrix must have positive dimensions!");
+        }
+        int[][] rangeMatrix = new int[height][width];
+        int currentNum = 1;
+        for (int i = 0; i < rangeMatrix.length; i++) {
+            for (int j = 0; j < rangeMatrix[0].length; j++) {
+                rangeMatrix[i][j] = currentNum;
+                currentNum++;
+            }
+        }
+        return rangeMatrix;
+    }
+    
     public static void main(String[] args) {
-        int[][] matr = new int[][]{{1, 2},
-                                   {5, 0}};
-        System.out.println(toString(matr));
+        System.out.println(toString(rangeMatrix(0, 5)));
     }
 }
