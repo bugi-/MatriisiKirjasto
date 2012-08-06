@@ -1,7 +1,7 @@
 package matrices;
 
 /**
- * Sisältää operaatioita 2d-listoille.
+ * Sisältää operaatioita 2d-listoille eli matriiseille.
  * 
  * @author Bugi
  */
@@ -28,9 +28,48 @@ public class MatrixOperations {
                 }
             }
             return result;
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {  // Mikäli dimensiot eivät täsmää, heitetään virhe.
             throw new MatrixDimensionException("Matrices need to have same dimensions in addition!");
         }
+    }
+    
+    /**
+     * Suorittaa matriisiyhteenlaskun annetuille matriiseille.
+     *
+     * @param matrix1 Ensimmäinen operoitava matriisi
+     * @param matrix2 Toinen operoitava matriisi
+     * @return Yhteenlaskun tulosmatriisi
+     * @throws MatrixDimensionException Mikäli dimensiot eivät täsmää (oltava
+     * täsmälleen samat).
+     */
+    public static double[][] MAdd(int[][] matrix1, double[][] matrix2) throws MatrixDimensionException{
+        if (matrix1.length != matrix2.length) {
+            throw new MatrixDimensionException("Matrices need to have same dimensions in addition!");
+        }
+        try {  // Ei tarkisteta vaikeammin saavutettavia dimensioita (jokaisen listan pituutta) etukäteen.
+            double[][] result = matrix2.clone();  // Nopeutetaan laskemista ottamalla pohjaksi toinen matriiseista.
+            for (int i = 0; i < matrix1.length; i++) {
+                for (int j = 0; j < matrix1[0].length; j++) {
+                    result[i][j] += matrix1[i][j];  // matr2:n arvo on jo tulostaulussa,
+                }
+            }
+            return result;
+        } catch (ArrayIndexOutOfBoundsException e) {  // Mikäli dimensiot eivät täsmää, heitetään virhe.
+            throw new MatrixDimensionException("Matrices need to have same dimensions in addition!");
+        }
+    }
+    
+    /**
+     * Suorittaa matriisiyhteenlaskun annetuille matriiseille.
+     *
+     * @param matrix1 Ensimmäinen operoitava matriisi
+     * @param matrix2 Toinen operoitava matriisi
+     * @return Yhteenlaskun tulosmatriisi
+     * @throws MatrixDimensionException Mikäli dimensiot eivät täsmää (oltava
+     * täsmälleen samat).
+     */
+    public static double[][] MAdd(double[][] matrix1, int[][] matrix2) throws MatrixDimensionException{
+        return MAdd(matrix2, matrix1);
     }
 
     /**
