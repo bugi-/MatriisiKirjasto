@@ -53,7 +53,7 @@ public class Matrix {
                         if (current > max) max = current;
                     }
                 }
-                // Lasketaan näiden pituudet ("hitaasti", mutta vakioajassa).
+                // Lasketaan merkkien määrä kymmenkantaisena ("hitaasti", mutta vakioajassa (kai)).
                 int minLength = String.valueOf(min).length();
                 int maxLength = String.valueOf(max).length();
                 // Valitaan pidempi
@@ -72,8 +72,9 @@ public class Matrix {
                         }
                         result.append(currentElement);
                     }
-                    result.append(" |" + "\n");
+                    result.append(" |\n");
                 }
+                result.deleteCharAt(result.length() - 1); // Poistetaan viimeinen rivinvaihto.
                 return result.toString();
             }
         }
@@ -104,7 +105,7 @@ public class Matrix {
      * @return width*height-kokoinen nollamatriisi.
      * @throws IllegalArgumentException
      */
-    public static int[][] zeroMatrix(int width, int height) throws IllegalArgumentException {
+    public static int[][] zeroMatrix(int height, int width) throws IllegalArgumentException {
         if (width < 0 || height < 0) {
             throw new IllegalArgumentException("A matrix must have positive dimensions!");
         }
@@ -137,7 +138,7 @@ public class Matrix {
      * @return width*height-kokoinen nollamatriisi.
      * @throws IllegalArgumentException
      */
-    public static double[][] zeroMatrixDbl(int width, int height) throws IllegalArgumentException {
+    public static double[][] zeroMatrixDbl(int height, int width) throws IllegalArgumentException {
         if (width < 0 || height < 0) {
             throw new IllegalArgumentException("A matrix must have positive dimensions!");
         }
@@ -195,7 +196,7 @@ public class Matrix {
      * @param height Matriisin korkeus
      * @return Kuvatunkaltainen matriisi
      */
-    public static int[][] rangeMatrix(int width, int height) {
+    public static int[][] rangeMatrix(int height, int width) {
         if (width < 0 || height < 0) {
             throw new IllegalArgumentException("A matrix must have positive dimensions!");
         }
