@@ -1,4 +1,4 @@
-package matrices;
+package MatriisiKirjasto;
 
 /**
  * Sisältää matriiseja generoivia metodeja, sekä 2d taulukoiden tulostukseen
@@ -8,7 +8,11 @@ package matrices;
  */
 public class Matrix {
 
-    private static final String emptyMatrixString = "[ ]";
+    // Parit merkkijonot matriisien tulostukseen
+    protected static final String emptyMatrixString = "[ ]";
+    protected static final String matrixLimitString = "|";
+    protected static final String vectorStartString = "[ ";
+    protected static final String vectorEndString = "]";
     
     private Matrix() {
     }
@@ -20,30 +24,33 @@ public class Matrix {
      * käytetä kriittisissä vaiheissa.
      */
     
-    /**
+    /*
      * Muodostaa merkkijonoesityksen parametrinä annetusta matriisista.
      * 
      * @param matrix Matriisi, josta muodostetaan merkkijono.
      * @return Merkkijonoesitys annetusta matriisista.
      */
     public static String toString(int[][] matrix) {
-        if (matrix.length == 0) {
+        if (matrix == null || matrix.length == 0) {
+            // Ei heitetä virhettä tms., vaikka syötteenä onkin null
             return emptyMatrixString;
         }
         else if (matrix.length == 1) {
-            StringBuilder result = new StringBuilder("[");
+            StringBuilder result = new StringBuilder(vectorStartString);
             for (int i = 0; i < matrix[0].length; i++) {
                 result.append(matrix[0][i]);
+                result.append(" ");
             }
-            result.append(" ]");
+            result.append(vectorEndString);
             return result.toString();
         }
         else {
             if (matrix[0].length == 0) {
+                // Monta riviä tyhjää on silti vain tyhjä matriisi
                 return emptyMatrixString;
             }
             else {
-                // Etsitään suurin ja pienin alkio formatointia varten.
+                // Etsitään suurin ja pienin alkio muotoilua varten.
                 int min = Integer.MAX_VALUE;
                 int max = Integer.MIN_VALUE;
                 for (int i = 0; i < matrix.length; i++) {
@@ -62,7 +69,7 @@ public class Matrix {
                 // Muodostetaan merkkijono alkioista riveittäin.
                 StringBuilder result = new StringBuilder();
                 for (int i = 0; i < matrix.length; i++) {
-                    result.append("|");
+                    result.append(matrixLimitString);
                     for (int j = 0; j < matrix[i].length; j++) {
                         // Tasataan oikealle, joten alkuun täytetään välilyönneillä  (vähintään 1)
                         int currentElement = matrix[i][j];
@@ -72,7 +79,7 @@ public class Matrix {
                         }
                         result.append(currentElement);
                     }
-                    result.append(" |\n");
+                    result.append(" "+ matrixLimitString + "\n");
                 }
                 result.deleteCharAt(result.length() - 1); // Poistetaan viimeinen rivinvaihto.
                 return result.toString();
@@ -80,7 +87,7 @@ public class Matrix {
         }
     }
 
-    /**
+    /*
      * *** MATRIISIEN GENEROINTIA     ******
      * 
      * Generointi on myös harvoin käytettävä toimenpide, joten turhaa optimointia ei harrasteta.
@@ -190,11 +197,24 @@ public class Matrix {
      * Luo matriisin, jonka alkiona on riveittäin juokseva alkion "järjestysluku".
      * Esim | 1, 2|
      *      | 3, 4|
-     * Sopii vaikkapa testailuun
+     * Sopii vaikkapa testailuun.
+     * 
+     * @param size Matriisin koko
+     * @return Kuvatunkaltainen matriisi.
+     */
+    public static int[][] rangeMatrix(int size) {
+        return rangeMatrix(size, size);
+    }
+    
+    /**
+     * Luo matriisin, jonka alkiona on riveittäin juokseva alkion "järjestysluku".
+     * Esim | 1, 2|
+     *      | 3, 4|
+     * Sopii vaikkapa testailuun.
      * 
      * @param width Matriisin leveys
      * @param height Matriisin korkeus
-     * @return Kuvatunkaltainen matriisi
+     * @return Kuvatunkaltainen matriisi.
      */
     public static int[][] rangeMatrix(int height, int width) {
         if (width < 0 || height < 0) {

@@ -1,4 +1,4 @@
-package matrices;
+package MatriisiKirjasto;
 
 /**
  * Erilaista kokeilua. Ei arvosteltavaksi.

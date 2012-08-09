@@ -1,10 +1,10 @@
+package MatriisiKirjasto;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 
-import matrices.Matrix;
-import matrices.MatrixOperations;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -42,7 +42,7 @@ public class MatrixOperationsTest {
      */
     @Test
     public void testMAdd_intArrArr_intArrArr() throws Exception {
-        int[][] zeros = Matrix.zeroMatrix(3, 2);
+        int[][] zeros = Matrix.zeroMatrix(2, 3);
         assertArrayEquals(zeros, MatrixOperations.MAdd(zeros, zeros));
         int[][] matr = new int[][]{{1,2,3},
                                    {4,5,6}};
@@ -61,14 +61,14 @@ public class MatrixOperationsTest {
     // Toimii testatulla koneella.
     @Test
     public void testMAdd_doubleArrArr_doubleArrArr() throws Exception {
-        double[][] zeros = Matrix.zeroMatrixDbl(3, 2);
+        double[][] zeros = Matrix.zeroMatrixDbl(2, 3);
         assertArrayEquals(zeros, MatrixOperations.MAdd(zeros, zeros));
         double[][] matr = new double[][]{{1,2,3},
-                                   {4,5,6}};
+                                         {4,5,6}};
         assertArrayEquals(matr, MatrixOperations.MAdd(matr, zeros));
         assertArrayEquals(matr, MatrixOperations.MAdd(zeros, matr)); // Varmistetaan kommutatiivisuus
         double[][] doubled = new double[][]{{2, 4, 6},
-                                      {8,10,12}};
+                                            {8,10,12}};
         
         assertArrayEquals(doubled, MatrixOperations.MAdd(matr, matr));
     }

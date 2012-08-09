@@ -1,4 +1,4 @@
-package matrices;
+package MatriisiKirjasto;
 
 /*
  * To change this template, choose Tools | Templates
