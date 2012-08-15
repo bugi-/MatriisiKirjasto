@@ -11,8 +11,8 @@ public class Matrix {
     // Parit merkkijonot matriisien tulostukseen
     protected static final String emptyMatrixString = "[ ]";
     protected static final String matrixLimitString = "|";
-    protected static final String vectorStartString = "[ ";
-    protected static final String vectorEndString = "]";
+    protected static final String vectorStartString = "[";
+    protected static final String vectorEndString = " ]";
     
     private Matrix() {
     }
@@ -38,9 +38,11 @@ public class Matrix {
         else if (matrix.length == 1) {
             StringBuilder result = new StringBuilder(vectorStartString);
             for (int i = 0; i < matrix[0].length; i++) {
+                result.append(' ');
                 result.append(matrix[0][i]);
-                result.append(" ");
+                result.append(','); // Pilkut väliin, jolloin tulostuksen voi syöttää sellaisenaan Pythoniin käyrien piirtämistä varten
             }
+            result.deleteCharAt(result.length() - 1);
             result.append(vectorEndString);
             return result.toString();
         }
@@ -232,6 +234,6 @@ public class Matrix {
     }
     
     public static void main(String[] args) {
-        System.out.println(toString(rangeMatrix(0, 5)));
+        System.out.println(toString(rangeMatrix(1, 5)));
     }
 }
