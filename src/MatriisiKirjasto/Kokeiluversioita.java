@@ -108,6 +108,7 @@ public class Kokeiluversioita {
         }
         System.out.println("Naiivi implementaatio:");
         System.out.println(Matrices.toString(new int[][]{naiveTimes}));
+        
         System.out.println("Transpoosin avulla:");
         System.out.println(Matrices.toString(new int[][]{transposedTimes}));
     }
