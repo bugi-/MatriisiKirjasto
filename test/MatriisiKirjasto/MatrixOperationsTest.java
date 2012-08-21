@@ -42,7 +42,7 @@ public class MatrixOperationsTest {
      */
     @Test
     public void testMAdd_intArrArr_intArrArr() throws Exception {
-        int[][] zeros = Matrix.zeroMatrix(2, 3);
+        int[][] zeros = Matrices.zeroMatrix(2, 3);
         assertArrayEquals(zeros, MatrixOperations.MAdd(zeros, zeros));
         int[][] matr = new int[][]{{1,2,3},
                                    {4,5,6}};
@@ -61,7 +61,7 @@ public class MatrixOperationsTest {
     // Toimii testatulla koneella.
     @Test
     public void testMAdd_doubleArrArr_doubleArrArr() throws Exception {
-        double[][] zeros = Matrix.zeroMatrixDbl(2, 3);
+        double[][] zeros = Matrices.zeroMatrixDbl(2, 3);
         assertArrayEquals(zeros, MatrixOperations.MAdd(zeros, zeros));
         double[][] matr = new double[][]{{1,2,3},
                                          {4,5,6}};

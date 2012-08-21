@@ -55,7 +55,7 @@ public class Kokeiluversioita {
     //naiivi transpoosin avulla
     private static int[][] MMult2(int[][] matrix1, int[][] matrix2) {
         // Otetaan avuksi toisen matriisin transpoosi, jolloin luetaan sarakkeiden sijaan rivejä.
-        // Tämä on muistinhallinnan ja lokaaliuden takia nopeampaa.
+        // Tämä on villinä arvauksena muistinhallinnan ja lokaaliuden takia nopeampaa.
         int[][] matrix2Transposed = MTranspose(matrix2);
         int[][] result = new int[matrix1.length][matrix2[0].length];
         for (int i = 0; i < result.length; i++) {
@@ -77,30 +77,39 @@ public class Kokeiluversioita {
     }
     
     /**
-     * Ajaa 
+     * Testaa vaihtoehtoisia matriisien kertomisalgoritmeja.
      */
     private static void testaaMatriisikertolaskua() {
         final int sampleSize = 1000;
-        final int maxSize = 100;
+        final int maxSize = 150;
+        final int sizeStep = 10;
         
-        for (int matrixSize = 0; matrixSize < maxSize; matrixSize += 10) {
-            int[][] range = Matrix.rangeMatrix(matrixSize);
-            int[][] unit = Matrix.identityMatrix(matrixSize);
+        int[] naiveTimes = new int[maxSize / sizeStep + 1];
+        int[] transposedTimes = new int[maxSize / sizeStep + 1];
+        
+        for (int matrixSize = 10; matrixSize <= maxSize; matrixSize += sizeStep) {
+            System.out.println(matrixSize);
+            int[][] range = Matrices.rangeMatrix(matrixSize);
+            int[][] unit = Matrices.identityMatrix(matrixSize);
 
             long startTime = System.currentTimeMillis();
             for (int i = 0; i < sampleSize; i++) {
                 MMult2(range, unit);
             }
             long finishTime = System.currentTimeMillis();
-            System.out.println("Transpoosin avulla: " + (finishTime - startTime) + " ms");
+            transposedTimes[matrixSize / sizeStep] = (int)(finishTime - startTime);
 
             startTime = System.currentTimeMillis();
             for (int i = 0; i < sampleSize; i++) {
                 MMult(range, unit);
             }
             finishTime = System.currentTimeMillis();
-            System.out.println("Naiivisti: " + (finishTime - startTime) + " ms");
+            naiveTimes[matrixSize / sizeStep] = (int)(finishTime - startTime);
         }
+        System.out.println("Naiivi implementaatio:");
+        System.out.println(Matrices.toString(new int[][]{naiveTimes}));
+        System.out.println("Transpoosin avulla:");
+        System.out.println(Matrices.toString(new int[][]{transposedTimes}));
     }
 
     public static void main(String[] args) {

@@ -6,7 +6,7 @@ package MatriisiKirjasto;
  *
  * @author Bugi
  */
-public class Matrix {
+public class Matrices {
 
     // Parit merkkijonot matriisien tulostukseen
     protected static final String emptyMatrixString = "[ ]";
@@ -14,7 +14,9 @@ public class Matrix {
     protected static final String vectorStartString = "[";
     protected static final String vectorEndString = " ]";
     
-    private Matrix() {
+    private  static final int matrixMinSize = 1;
+    
+    private Matrices() {
     }
 
     /*
@@ -115,7 +117,7 @@ public class Matrix {
      * @throws IllegalArgumentException
      */
     public static int[][] zeroMatrix(int height, int width) throws IllegalArgumentException {
-        if (width < 0 || height < 0) {
+        if (width < matrixMinSize || height < matrixMinSize) {
             throw new IllegalArgumentException("A matrix must have positive dimensions!");
         }
         int[][] zeros = new int[height][width];
@@ -148,7 +150,7 @@ public class Matrix {
      * @throws IllegalArgumentException
      */
     public static double[][] zeroMatrixDbl(int height, int width) throws IllegalArgumentException {
-        if (width < 0 || height < 0) {
+        if (width < matrixMinSize || height < matrixMinSize) {
             throw new IllegalArgumentException("A matrix must have positive dimensions!");
         }
         double[][] zeros = new double[height][width];
@@ -168,7 +170,7 @@ public class Matrix {
      * @return size:n kokoinen yksikkömatriisi.
      */
     public static int[][] identityMatrix(int size) throws IllegalArgumentException {
-        if (size < 0) {
+        if (size < matrixMinSize) {
             throw new IllegalArgumentException("A matrix must have positive size!");
         }
         int[][] identity = zeroMatrix(size);
@@ -185,7 +187,7 @@ public class Matrix {
      * @return size:n kokoinen yksikkömatriisi.
      */
     public static double[][] identityMatrixDbl(int size) throws IllegalArgumentException {
-        if (size < 0) {
+        if (size < matrixMinSize) {
             throw new IllegalArgumentException("A matrix must have positive size!");
         }
         double[][] identity = zeroMatrixDbl(size);
@@ -219,7 +221,7 @@ public class Matrix {
      * @return Kuvatunkaltainen matriisi.
      */
     public static int[][] rangeMatrix(int height, int width) {
-        if (width < 0 || height < 0) {
+        if (width < matrixMinSize || height < matrixMinSize) {
             throw new IllegalArgumentException("A matrix must have positive dimensions!");
         }
         int[][] rangeMatrix = new int[height][width];
