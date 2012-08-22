@@ -13,7 +13,7 @@ public class MatrixOperations {
      * @param matrix Transponoitava matriisi
      * @return Matriisin transpoosi. Transpoosissa sarakkeet käännetään riveiksi
      */
-    private static int[][] MTranspose(int[][] matrix) {
+    public static int[][] MTranspose(int[][] matrix) {
         try {
             // Nollanpituisia transpooseja on vaikea määritellä.
             // Tälläisessä tapauksessa matriisi ei voi sisältää kuitenkaan tietoa, joten palautetaan matriisi itsessään.
@@ -218,7 +218,7 @@ public class MatrixOperations {
      * @param matrix2 Toinen (oikea) syötematriisi
      * @return Matriisikertolaskun tulosmatriisi
      */
-    private static int[][] MMult(int[][] matrix1, int[][] matrix2) throws MatrixDimensionException{
+    public static int[][] MMult(int[][] matrix1, int[][] matrix2) throws MatrixDimensionException{
         try {
         if (matrix1[0].length != matrix2.length) throw new MatrixDimensionException("Inner dimensions need to match in multiplication!");
         // Otetaan avuksi toisen matriisin transpoosi, jolloin luetaan sarakkeiden sijaan rivejä.
