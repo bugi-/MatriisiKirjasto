@@ -1,7 +1,8 @@
 package MatriisiKirjasto;
 
 /**
- * Erilaista kokeilua. Ei arvosteltavaksi.
+ * Erilaista kokeilua. Ei varsinaisesti arvosteltavaksi,
+ * mutta sisältää matriisikertolaskun nopeudentestausohjelman, jonka tulokset sisällytetään palautukseen.
  *
  * @author Bugi
  */

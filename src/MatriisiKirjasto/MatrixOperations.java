@@ -219,7 +219,8 @@ public class MatrixOperations {
      * @return Matriisikertolaskun tulosmatriisi
      */
     private static int[][] MMult(int[][] matrix1, int[][] matrix2) throws MatrixDimensionException{
-        
+        try {
+        if (matrix1[0].length != matrix2.length) throw new MatrixDimensionException("Inner dimensions need to match in multiplication!");
         // Otetaan avuksi toisen matriisin transpoosi, jolloin luetaan sarakkeiden sijaan rivejä.
         // Tämä on villinä arvauksena muistinhallinnan ja lokaaliuden takia nopeampaa.
         int[][] matrix2Transposed = MTranspose(matrix2);
@@ -240,5 +241,9 @@ public class MatrixOperations {
         }
 
         return result;
+        }
+        catch (NullPointerException e) {
+            return null;
+        }
     }
 }
