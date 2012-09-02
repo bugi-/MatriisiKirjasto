@@ -33,21 +33,24 @@ public class Matrices {
      * @return Merkkijonoesitys annetusta matriisista.
      */
     public static String toString(int[][] matrix) {
+        // Tyhjä
         if (matrix == null || matrix.length == 0) {
             // Ei heitetä virhettä tms., vaikka syötteenä onkin null
             return emptyMatrixString;
         }
+        // Vektori
         else if (matrix.length == 1) {
             StringBuilder result = new StringBuilder(vectorStartString);
             for (int i = 0; i < matrix[0].length; i++) {
                 result.append(' ');
                 result.append(matrix[0][i]);
-                result.append(','); // Pilkut väliin, jolloin tulostuksen voi syöttää sellaisenaan Pythoniin käyrien piirtämistä varten
+                result.append(','); // Pilkutetaan, jolloin listat voi syöttää sellaisenaan Pythoniin
             }
             result.deleteCharAt(result.length() - 1);
             result.append(vectorEndString);
             return result.toString();
         }
+        // Kunnon matriisi
         else {
             if (matrix[0].length == 0) {
                 // Monta riviä tyhjää on silti vain tyhjä matriisi

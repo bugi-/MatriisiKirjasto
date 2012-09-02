@@ -1,4 +1,4 @@
-package MatriisiKirjasto;
+package MatriisiKirjasto.virheet;
 
 /*
  * To change this template, choose Tools | Templates
@@ -11,7 +11,7 @@ package MatriisiKirjasto;
  * dimensiot ja kertolaskussa matriisien tulee olla muotoa (n*m)(m*p).
  * @author Bugi
  */
-public class MatrixDimensionException extends Exception {
+public class MatrixDimensionException extends MatrixException {
 
     static final String defaultMessage = "Dimensions of the matrices are incorrect for this operation";
 

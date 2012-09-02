@@ -2,13 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package MatriisiKirjasto;
+package MatriisiKirjasto.virheet;
 
 /**
- *
+ * Käytetään, mikäli käsiteltävä matriisi on singulaarinen operaation vaatiessa ei-singulaarissta.
+ * 
  * @author bugi
  */
-public class SingularMatrixException extends Exception {
+public class SingularMatrixException extends MatrixException {
     static final String defaultMessage = "The matrix is singular!";
 
     /**

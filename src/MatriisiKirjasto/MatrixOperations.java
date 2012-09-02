@@ -1,5 +1,7 @@
 package MatriisiKirjasto;
 
+import MatriisiKirjasto.virheet.MatrixDimensionException;
+
 /**
  * Sisältää operaatioita 2d-listoille eli matriiseille.
  *

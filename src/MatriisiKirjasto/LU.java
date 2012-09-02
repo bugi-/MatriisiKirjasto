@@ -4,6 +4,9 @@
  */
 package MatriisiKirjasto;
 
+import MatriisiKirjasto.virheet.MatrixDimensionException;
+import MatriisiKirjasto.virheet.SingularMatrixException;
+
 /**
  * Sisältää yhden LU-hajotelman
  *
@@ -11,9 +14,9 @@ package MatriisiKirjasto;
  */
 public class LU {
 
-    private int perm;
-    private int[] permutationMatrix;
-    private double[][] LU;
+    private int perm;  // 1 tai -1, käytetään determinantin laskemisessa
+    private int[] permutationMatrix;  // Jokaiselle alkiolle a_i paikassa i, hajotelman i:s rivi on alkuperäisen matriisin a_i:s rivi.
+    private double[][] LU;  // Sisältää itse hajotelman.
     
     public int getPerm() {
         return perm;
@@ -28,12 +31,43 @@ public class LU {
     }
     
     /**
-     * Luo LU-hajotelman syötteenä annetulle matriisille. Hajotelma ja siihen liittyvät tiedot talletetaan luokan kenttiin.
+     * Muuttaa annetun int-matriisin double-matriisiksi.
+     * 
+     * @param matrix Muutettava matriisi
+     * @return Annettu matriisi doublena
+     */
+    private static double[][] intToDoubleMatrix(int[][] matrix) {
+        double[][] dblMatrix = new double[matrix.length][matrix[0].length];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                dblMatrix[i][j] = matrix[i][j];
+            }
+        }
+        return dblMatrix;
+    }
+    
+    /**
+     * Luo LU-hajotelman syötteenä annetulle matriisille.
      * 
      * @param matrix Matriisi, josta hajotelma muodostetaan.
-     * @throws SingularMatrixException Jos matriisi on singulaarinen.
+     * @throws SingularMatrixException Matriisin ollessa singulaarinen
+     * @throws MatrixDimensionException Matriisin ollessa muu kuin neliö.
      */
-    public LU(double[][] matrix) throws SingularMatrixException {
+    public LU(int[][] matrix) throws SingularMatrixException, MatrixDimensionException {
+        // Muutetaan int-matriisi double-matriisiksi ja syötetään se double-konstruktoriin.
+        // Hajotelman teossa jaetaan alkioilla, jolloin tulos ei välttämättä pysy kokonaislukuna.
+        this(intToDoubleMatrix(matrix));
+    }
+    
+    /**
+     * Luo LU-hajotelman syötteenä annetulle matriisille.
+     * 
+     * @param matrix Matriisi, josta hajotelma muodostetaan.
+     * @throws SingularMatrixException Matriisin ollessa singulaarinen.
+     * @throws MatrixDimensionException Matriisin ollessa muu kuin neliö.
+     */
+    public LU(double[][] matrix) throws SingularMatrixException, MatrixDimensionException {
+        if (matrix.length != matrix[0].length) throw new MatrixDimensionException("Can not create LU decomposition of a non square matrix!");
         final int n = matrix.length;
         int perm = 1;  // Tähän muuttujaan tulee tehtyjen permutaatioiden perusteella 1 tai -1
         int[] permutationMatrix = new int[n];  // Permutaatiomatriisi voidaan ilmaista listalla, jossa i:s alkio kertoo, mikä rivi on vaihdettu i:ksi.
@@ -54,13 +88,11 @@ public class LU {
                     exchangeColumn = i;
                 }
             }
-            System.out.println(Matrices.toString(new int[][]{permutationMatrix}));
             if (Math.abs(rowMax) < epsilon) {
                 throw new SingularMatrixException(); // Suurinkin on liian lähellä nollaa, joten sillä ei voida jakaa.
             }            // Suoritetaan permutaatio
             if (exchangeColumn != k) {
                 // Laitetaan permutaatio talteen.
-                System.out.println(k + " " + exchangeColumn);
                 int tempPerm = permutationMatrix[k];
                 permutationMatrix[k] = permutationMatrix[exchangeColumn];
                 permutationMatrix[exchangeColumn] = tempPerm;

@@ -1,5 +1,7 @@
 package MatriisiKirjasto;
 
+import MatriisiKirjasto.virheet.MatrixException;
+
 /**
  * Erilaista kokeilua. Ei varsinaisesti arvosteltavaksi,
  * mutta sisältää matriisikertolaskun nopeudentestausohjelman, jonka tulokset sisällytetään palautukseen.
@@ -129,7 +131,7 @@ public class Kokeiluversioita {
         try {
             matrixDecomp = new LU(matrix);
         }
-        catch (SingularMatrixException e) {
+        catch (MatrixException e) {
             
         }
         matrix = matrixDecomp.getLU();
