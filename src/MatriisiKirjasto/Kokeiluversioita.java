@@ -119,14 +119,15 @@ public class Kokeiluversioita {
    
     
     public static void main(String[] args) {
-//        double[][] matrix = new double[][] {{2,3,1,5},
-//                                            {6,13,5,19},
-//                                            {2,19,10,23},
-//                                            {4,10,11,31}};
-        double[][] matrix = new double[][] {{2,0,2,0.6},
-                                            {3,3,4,-2},
-                                            {5,5,4,2},
-                                            {-1,-2,3.4,-1}};
+//        double[][] matrix = new double[][] {{2,0,2,0.6},
+//                                            {3,3,4,-2},
+//                                            {5,5,4,2},
+//                                            {-1,-2,3.4,-1}};
+//        int[][] matrix = new int[][] {{3,2,-1,4},  // det = -418
+//                                      {2,1,5,7},
+//                                      {0,5,2,-6},
+//                                      {-1,2,1,0}};
+        int[][] matrix = Matrices.identityMatrix(4);
         LU matrixDecomp = null;
         try {
             matrixDecomp = new LU(matrix);
@@ -134,12 +135,13 @@ public class Kokeiluversioita {
         catch (MatrixException e) {
             
         }
-        matrix = matrixDecomp.getLU();
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                System.out.print(matrix[i][j] + " ");
+        double[][] matrix1 = matrixDecomp.getLU();
+        for (int i = 0; i < matrix1.length; i++) {
+            for (int j = 0; j < matrix1[0].length; j++) {
+                System.out.print(matrix1[i][j] + " ");
             }
             System.out.println();
         }
+        System.out.println(matrixDecomp.determinant());
     }
 }
