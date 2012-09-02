@@ -220,27 +220,31 @@ public class MatrixOperations {
      */
     public static int[][] MMult(int[][] matrix1, int[][] matrix2) throws MatrixDimensionException{
         try {
-        if (matrix1[0].length != matrix2.length) throw new MatrixDimensionException("Inner dimensions need to match in multiplication!");
-        // Otetaan avuksi toisen matriisin transpoosi, jolloin luetaan sarakkeiden sijaan rivejä.
-        // Tämä on villinä arvauksena muistinhallinnan ja lokaaliuden takia nopeampaa.
-        int[][] matrix2Transposed = MTranspose(matrix2);
-        int[][] result = new int[matrix1.length][matrix2[0].length];
-        for (int i = 0; i < result.length; i++) {
-            for (int j = 0; j < result[0].length; j++) {
-                /* 
-                 * Lasketaan tulosmatriisin kukin alkio kaavasta C_ij = sum(A_ik * B_kj), k = 1, m
-                 * Tässä m on ensimmäisen matriisin leveys ja toisen korkeus ja suoritettava laskutoimitus AB = C
-                 * (Tässä tapauksessa siis matrix1 * matrix2 = result)
-                 */
-                int elementSum = 0;
-                for (int k = 0; k < matrix2.length; k++) {
-                    elementSum += matrix1[i][k] * matrix2Transposed[j][k];
-                }
-                result[i][j] = elementSum;
+            if (matrix1[0].length != matrix2.length) {
+                throw new MatrixDimensionException("Inner dimensions need to match in multiplication!");
             }
-        }
+            // Otetaan avuksi toisen matriisin transpoosi, jolloin luetaan sarakkeiden sijaan rivejä.
+            // Tämä on villinä arvauksena muistinhallinnan ja lokaaliuden takia nopeampaa.
+            int[][] matrix2Transposed = MTranspose(matrix2);
+            int[][] result = new int[matrix1.length][matrix2[0].length];
+            for (int i = 0; i < result.length; i++) {
+                for (int j = 0; j < result[0].length; j++) {
+                    /*
+                     * Lasketaan tulosmatriisin kukin alkio kaavasta C_ij =
+                     * sum(A_ik * B_kj), k = 1, m Tässä m on ensimmäisen
+                     * matriisin leveys ja toisen korkeus ja suoritettava
+                     * laskutoimitus AB = C (Tässä tapauksessa siis matrix1 *
+                     * matrix2 = result)
+                     */
+                    int elementSum = 0;
+                    for (int k = 0; k < matrix2.length; k++) {
+                        elementSum += matrix1[i][k] * matrix2Transposed[j][k];
+                    }
+                    result[i][j] = elementSum;
+                }
+            }
 
-        return result;
+            return result;
         }
         catch (NullPointerException e) {
             return null;

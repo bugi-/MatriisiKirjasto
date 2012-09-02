@@ -114,53 +114,25 @@ public class Kokeiluversioita {
         System.out.println(Matrices.toString(new int[][]{transposedTimes}));
     }
 
-    private static double[][] LUdecomp(double[][] matrix) throws SingularMatrixException{
-        final int n = matrix.length;
-        int perm = 1;
-        final double epsilon = Double.MIN_VALUE;
-        double[][] LU = matrix.clone(); // Muodostetaan hajotelma tähän matriisiin. Sekä ala-, että yläkolmiomatriisi voidaan sijoittaa samaan matriisiin, koska toisen näistä diagonaali on aina 1, joten mitään tietoa ei menetetä.
-        
-        for (int k = 0; k < n; k++) {
-            // Haetaan sarakkeen suurin alkio "pivot"-paikalle
-            double rowMax = 0;
-            int exchangeColumn = k;
-            for (int i = k; i < n; i++) {
-                if (Math.abs(LU[i][k]) > rowMax) {
-                    rowMax = Math.abs(LU[i][k]);
-                    exchangeColumn = k;
-                }
-            }
-            if (Math.abs(rowMax) < epsilon) throw new SingularMatrixException(); // Suurinkin on liian lähellä nollaa, joten sillä ei voida jakaa.
-            if (exchangeColumn != k) {  // Suoritetaan permutaatio
-                perm *= -1;  // Ei tarvita permutaatiomatriisia, sillä tarvitsee vain tietää tehtyjen rivinvaihtojen määrä.
-                for (int i = 0; i < n; i++) {
-                    double temp = LU[i][k];
-                    LU[i][k] = LU[i][exchangeColumn];
-                    LU[i][exchangeColumn] = temp;
-                }
-            }
-            for (int i = k + 1; i < n; i++) {
-                LU[i][k] /= LU[k][k];
-                for (int j = k + 1; j < n; j++) {
-                    LU[i][j] -= LU[i][k] * LU[k][j];
-                }
-            }
-        }
-        
-        return LU;
-    }
+   
     
     public static void main(String[] args) {
-        double[][] matrix = new double[][] {{2,3,1,5},
-                                            {6,13,5,19},
-                                            {2,19,10,23},
-                                            {4,10,11,31}};
+//        double[][] matrix = new double[][] {{2,3,1,5},
+//                                            {6,13,5,19},
+//                                            {2,19,10,23},
+//                                            {4,10,11,31}};
+        double[][] matrix = new double[][] {{2,0,2,0.6},
+                                            {3,3,4,-2},
+                                            {5,5,4,2},
+                                            {-1,-2,3.4,-1}};
+        LU matrixDecomp = null;
         try {
-            matrix = LUdecomp(matrix);
+            matrixDecomp = new LU(matrix);
         }
         catch (SingularMatrixException e) {
             
         }
+        matrix = matrixDecomp.getLU();
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
                 System.out.print(matrix[i][j] + " ");
