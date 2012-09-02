@@ -38,6 +38,35 @@ public class MatrixOperations {
         }
     }
 
+        /**
+     * Transponoi parametrina annetun matriisin.
+     * 
+     * @param matrix Transponoitava matriisi
+     * @return Matriisin transpoosi. Transpoosissa sarakkeet käännetään riveiksi
+     */
+    public static double[][] MTranspose(double[][] matrix) {
+        try {
+            // Nollanpituisia transpooseja on vaikea määritellä.
+            // Tälläisessä tapauksessa matriisi ei voi sisältää kuitenkaan tietoa, joten palautetaan matriisi itsessään.
+            if (matrix.length == 0 || matrix[0].length == 0) {
+                return matrix;
+            }
+
+            double[][] transposed = new double[matrix[0].length][matrix.length];
+
+            for (int i = 0; i < matrix.length; i++) {
+                for (int j = 0; j < matrix[i].length; j++) {
+                    transposed[j][i] = matrix[i][j];
+                }
+            }
+
+            return transposed;
+        }
+        catch (NullPointerException e) {
+            return null;
+        }
+    }
+    
     /**
      * Suorittaa matriisiyhteenlaskun annetuille matriiseille.
      *

@@ -52,6 +52,9 @@ public class LUTest {
             matrix = new int[][]{{2,-2,0},{-1,5,1},{3,4,5}};
             det = new LU(matrix);
             assertEquals(det.determinant(), 26, delta);
+            matrix = new int[][]{{3,1,8},{2,-5,4},{-1,6,-2}};
+            det = new LU(matrix);
+            assertEquals(det.determinant(), 14, delta);
             
         }
         catch (MatrixException e) {

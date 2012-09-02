@@ -72,13 +72,8 @@ public class MatrixTest {
      */
     @Test
     public void testZeroMatrix_int_int() {
-        // Tyhjä
-        int size = 0;
-        int[][] exp = new int[][]{};
-        int[][] result = Matrices.zeroMatrix(size, size);
-        assertArrayEquals(exp, result);
         
-        size = -1;
+        int size = -1;
         try {
             Matrices.zeroMatrix(size, 1);
             fail("Should not work with a negative argument!");
@@ -91,22 +86,13 @@ public class MatrixTest {
         catch (IllegalArgumentException e) {}
         
         size = 1;
-        exp = new int[][]{{0}};
-        result = Matrices.zeroMatrix(size, size);
+        int[][] exp = new int[][]{{0}};
+        int[][] result = Matrices.zeroMatrix(size, size);
         assertArrayEquals(exp, result);
+        
         
         int dim1 = 2;
-        int dim2 = 0;
-        exp = new int[][]{{},
-                          {}};
-        result = Matrices.zeroMatrix(dim1, dim2);
-        assertArrayEquals(exp, result);
-        exp = new int[][]{};
-        result = Matrices.zeroMatrix(dim2, dim1);
-        assertArrayEquals(exp, result);
-        
-        dim1 = 2;
-        dim2 = 1;
+        int dim2 = 1;
         exp = new int[][]{{0},
                           {0}};
         result = Matrices.zeroMatrix(dim1, dim2);
@@ -136,13 +122,8 @@ public class MatrixTest {
      */
     @Test
     public void testZeroMatrixDbl_int_int() {
-        // Tyhjä
-        int size = 0;
-        double[][] exp = new double[][]{};
-        double[][] result = Matrices.zeroMatrixDbl(size, size);
-        assertArrayEquals(exp, result);
 
-        size = -1;
+        int size = -1;
         try {
             Matrices.zeroMatrixDbl(size, 1);
             fail("Should not work with a negative argument!");
@@ -157,22 +138,12 @@ public class MatrixTest {
         }
 
         size = 1;
-        exp = new double[][]{{0}};
-        result = Matrices.zeroMatrixDbl(size, size);
+        double[][] exp = new double[][]{{0}};
+        double[][] result = Matrices.zeroMatrixDbl(size, size);
         assertArrayEquals(exp, result);
 
         int dim1 = 2;
-        int dim2 = 0;
-        exp = new double[][]{{},
-                             {}};
-        result = Matrices.zeroMatrixDbl(dim1, dim2);
-        assertArrayEquals(exp, result);
-        exp = new double[][]{};
-        result = Matrices.zeroMatrixDbl(dim2, dim1);
-        assertArrayEquals(exp, result);
-
-        dim1 = 2;
-        dim2 = 1;
+        int dim2 = 1;
         exp = new double[][]{{0},
                              {0}};
         result = Matrices.zeroMatrixDbl(dim1, dim2);
@@ -194,12 +165,8 @@ public class MatrixTest {
      */
     @Test
     public void testIdentityMatrix() {
-        int size = 0;
-        int[][] exp = new int[][]{};
-        int[][] result = Matrices.identityMatrix(size);
-        assertArrayEquals(exp, result);
         
-        size = -1;
+        int size = -1;
         try {
             Matrices.zeroMatrix(size);
             fail("Should not work with negative argument!");
@@ -207,8 +174,8 @@ public class MatrixTest {
         catch (IllegalArgumentException e) {}
         
         size = 1;
-        exp = new int[][]{{1}};
-        result = Matrices.identityMatrix(size);
+        int[][] exp = new int[][]{{1}};
+        int[][] result = Matrices.identityMatrix(size);
         assertArrayEquals(exp, result);
         
         size = 2;
@@ -230,12 +197,8 @@ public class MatrixTest {
      */
     @Test
     public void testIdentityMatrixDbl() {
-        int size = 0;
-        double[][] exp = new double[][]{};
-        double[][] result = Matrices.identityMatrixDbl(size);
-        assertArrayEquals(exp, result);
         
-        size = -1;
+        int size = -1;
         try {
             Matrices.zeroMatrix(size);
             fail("Should not work with negative argument!");
@@ -243,8 +206,8 @@ public class MatrixTest {
         catch (IllegalArgumentException e) {}
         
         size = 1;
-        exp = new double[][]{{1}};
-        result = Matrices.identityMatrixDbl(size);
+        double[][] exp = new double[][]{{1}};
+        double[][] result = Matrices.identityMatrixDbl(size);
         assertArrayEquals(exp, result);
         
         size = 2;
@@ -285,12 +248,8 @@ public class MatrixTest {
      */
     @Test
     public void testRangeMatrix_int_int() {
-        int size = 0;
-        int[][] exp = new int[][]{};
-        int[][] result = Matrices.rangeMatrix(size, size);
-        assertArrayEquals(exp, result);
         
-        size = -1;
+        int size = -1;
         try {
             Matrices.rangeMatrix(size, 1);
             fail("Should not work with negative argument!");
@@ -303,21 +262,20 @@ public class MatrixTest {
         catch (IllegalArgumentException e) {}
         
         size = 1;
-        exp = new int[][]{{1}};
-        result = Matrices.identityMatrix(size);
+        int[][] exp = new int[][]{{1}};
+        int[][] result = Matrices.rangeMatrix(size);
         assertArrayEquals(exp, result);
         
         size = 2;
         exp = new int[][]{{1, 2},
                           {3, 4}};
-        result = Matrices.identityMatrix(size);
+        result = Matrices.rangeMatrix(size);
         assertArrayEquals(exp, result);
         
         size = 3;
-        exp = new int[][]{{1, 0, 0},
-                          {0, 1, 0},
-                          {0, 0, 1}};
-        result = Matrices.identityMatrix(size);
+        exp = new int[][]{{1, 2, 3},
+                          {4, 5, 6}};
+        result = Matrices.rangeMatrix(2,3);
         assertArrayEquals(exp, result);
     }
 }
