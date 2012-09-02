@@ -136,32 +136,33 @@ public class LU {
      * @return Ratkaisuvektori
      * @throws MatrixDimensionException b-vektorin tulee olla matriisin mukainen.
      */
-    public double[] solve(double[] b) throws MatrixDimensionException {
-        int n = LU.length;
-        if (b.length != n) {
-            throw new MatrixDimensionException("Matrix must be NxN and b must have length N.");
-        }
-
-        double[] x = new double[n];  // Tulosvektori
-        // alustetaan x b:n arvoilla. Samalla suoritetaan tehdyt permutaatiot myös b:hen.
-        for (int i = 0; i < n; i++) {
-            x[i] = b[permutationMatrix[i]];
-        }
-        // Tehdään forward substitution
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < i-1; j++) {
-                x[i] -= LU[i][j] * x[j];
-            }
-        }
-        // Tehdään backsubstitution
-        for (int i = n - 1; i >= 0; i--) {
-            for (int j = i + 1; j < n; j++) {
-                x[i] -= LU[i][j] * x[j];
-            }
-            x[i] /= LU[i][i];
-        }
-        
-        
-        return x;
-    }
+    // Ei toimi. Jätän kuitenkin yrityksen näkyviin.
+//    public double[] solve(double[] b) throws MatrixDimensionException {
+//        int n = LU.length;
+//        if (b.length != n) {
+//            throw new MatrixDimensionException("Matrix must be NxN and b must have length N.");
+//        }
+//
+//        double[] x = new double[n];  // Tulosvektori
+//        // alustetaan x b:n arvoilla. Samalla suoritetaan tehdyt permutaatiot myös b:hen.
+//        for (int i = 0; i < n; i++) {
+//            x[i] = b[permutationMatrix[i]];
+//        }
+//        // Tehdään forward substitution
+//        for (int i = 0; i < n; i++) {
+//            for (int j = 0; j < i-1; j++) {
+//                x[i] -= LU[i][j] * x[j];
+//            }
+//        }
+//        // Tehdään backsubstitution
+//        for (int i = n - 1; i >= 0; i--) {
+//            for (int j = i + 1; j < n; j++) {
+//                x[i] -= LU[i][j] * x[j];
+//            }
+//            x[i] /= LU[i][i];
+//        }
+//        
+//        
+//        return x;
+//    }
 }
